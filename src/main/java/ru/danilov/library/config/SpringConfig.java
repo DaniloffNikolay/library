@@ -38,6 +38,7 @@ public class SpringConfig implements WebMvcConfigurer {
         this.enviroment = enviroment;
     }
 
+
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();

@@ -1,10 +1,12 @@
 package ru.danilov.library.config;
 
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import javax.servlet.Filter;
+import javax.servlet.*;
 
 /**
  * User: Nikolai Danilov
@@ -27,14 +29,21 @@ public class MySpringMvcDispatcherSerlvetInititializer extends AbstractAnnotatio
     }
 
     @Override
-    protected Filter[] getServletFilters() {
-        Filter[] filters;
-        CharacterEncodingFilter encFilter;
-        HiddenHttpMethodFilter httpMethodFilter = new HiddenHttpMethodFilter();
-        encFilter = new CharacterEncodingFilter();
-        encFilter.setEncoding("UTF-8");
-        encFilter.setForceEncoding(true);
-        filters = new Filter[] {httpMethodFilter, encFilter};
-        return filters;
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+        context.register(SpringConfig.class/*, WebConfig.class*/);
+        context.setServletContext(servletContext);
+
+        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(context));
+        dispatcher.setLoadOnStartup(1);
+        dispatcher.addMapping("/");
+
+        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+        characterEncodingFilter.setEncoding("UTF-8");
+        characterEncodingFilter.setForceEncoding(true);
+
+        FilterRegistration.Dynamic filterRegistration = servletContext
+                .addFilter("characterEncodingFilter", characterEncodingFilter);
+        filterRegistration.addMappingForUrlPatterns(null, false, "/*");
     }
 }

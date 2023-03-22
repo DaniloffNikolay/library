@@ -10,7 +10,7 @@ import javax.validation.constraints.Pattern;
  */
 public class Person {
     private int id;
-    @Pattern(regexp = "[А-Я]\\w+ [А-Я]\\w+ [А-Я]\\w+", message = "Your FIO should be in this format: Surname Name MiddleName")
+    //@Pattern(regexp = "[А-Я]\\w+ [А-Я]\\w+ [А-Я]\\w+", message = "Your FIO should be in this format: Surname Name MiddleName")
     private String fio;
     @Min(value = 1900, message = "birth year should be greater than 1900")
     @Max(value = 2023, message = "birth year should be less than 2023")
