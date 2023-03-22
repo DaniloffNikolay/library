@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import ru.danilov.library.models.Person;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * User: Nikolai Danilov
@@ -28,5 +29,14 @@ public class PersonDAO {
 
     public void save(Person person) {
         jdbcTemplate.update("INSERT INTO Person(fio, birth_year) VALUES(?, ?)", person.getFio(), person.getBirthYear());
+    }
+
+    public Person show(int id) {
+        return jdbcTemplate.query("SELECT * FROM Person WHERE id=?",
+                        new Object[]{id},
+                        new BeanPropertyRowMapper<>(Person.class))
+                .stream()
+                .findAny()
+                .orElse(null);
     }
 }

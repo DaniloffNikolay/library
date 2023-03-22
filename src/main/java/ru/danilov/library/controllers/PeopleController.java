@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.danilov.library.dao.PersonDAO;
 import ru.danilov.library.models.Person;
 
@@ -47,5 +44,12 @@ public class PeopleController {
 
         personDAO.save(person);
         return "redirect:/people";
+    }
+
+    @GetMapping("/{id}")
+    public String show(@PathVariable("id") int id, Model model) {
+        System.out.println(id);
+        model.addAttribute("person", personDAO.show(id));
+        return "people/show";
     }
 }
