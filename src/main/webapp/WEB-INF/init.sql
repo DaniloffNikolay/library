@@ -31,4 +31,4 @@ INSERT INTO Books(person_id, name, author, year) VALUES (null,'Игра в би�
 INSERT INTO Books(person_id, name, author, year) VALUES (null,'Бытие и время', 'Мартин Хайдеггер', 1927);
 
 SELECT * FROM Person;
---SELECT *FROM Books;
+SELECT *FROM Books;
