@@ -23,9 +23,10 @@ public class PersonDAO {
     }
 
     public List<Person> index() {
-        /*List<Person> people = jdbcTemplate.query("SELECT * FROM Person", new PersonMapper()); //new BeanPropertyRowMapper<>(Person.class)
-        for (Person person : people)
-            System.out.println(person);*/
         return jdbcTemplate.query("SELECT * FROM Person", new BeanPropertyRowMapper<>(Person.class)); //new PersonMapper()
+    }
+
+    public void save(Person person) {
+        jdbcTemplate.update("INSERT INTO Person(fio, birth_year) VALUES(?, ?)", person.getFio(), person.getBirthYear());
     }
 }

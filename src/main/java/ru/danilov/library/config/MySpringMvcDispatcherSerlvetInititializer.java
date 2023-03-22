@@ -25,4 +25,16 @@ public class MySpringMvcDispatcherSerlvetInititializer extends AbstractAnnotatio
     protected String[] getServletMappings() {
         return new String[]{"/"};
     }
+
+    @Override
+    protected Filter[] getServletFilters() {
+        Filter[] filters;
+        CharacterEncodingFilter encFilter;
+        HiddenHttpMethodFilter httpMethodFilter = new HiddenHttpMethodFilter();
+        encFilter = new CharacterEncodingFilter();
+        encFilter.setEncoding("UTF-8");
+        encFilter.setForceEncoding(true);
+        filters = new Filter[] {httpMethodFilter, encFilter};
+        return filters;
+    }
 }

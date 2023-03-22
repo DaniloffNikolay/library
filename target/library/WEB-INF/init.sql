@@ -21,7 +21,6 @@ INSERT INTO Person(fio, birth_year) VALUES ('Алексеев Алексей А�
 INSERT INTO Person(fio, birth_year) VALUES ('Познер Владимир Владимирович', 1944);
 INSERT INTO Person(fio, birth_year) VALUES ('Федоров Мирон Янович', 1985);
 
-SELECT * FROM Person;
 
 INSERT INTO Books(person_id, name, author, year) VALUES (null,'Над пропостью во ржи', 'Джером Сэлинджер', 1951);
 INSERT INTO Books(person_id, name, author, year) VALUES (null,'День опричника', 'Владимир Сорокин', 2006);
@@ -31,4 +30,5 @@ INSERT INTO Books(person_id, name, author, year) VALUES (null,'Психопот�
 INSERT INTO Books(person_id, name, author, year) VALUES (null,'Игра в бисер', 'Герман Гессе', 1943);
 INSERT INTO Books(person_id, name, author, year) VALUES (null,'Бытие и время', 'Мартин Хайдеггер', 1927);
 
-SELECT *FROM Books;
+SELECT * FROM Person;
+--SELECT *FROM Books;
