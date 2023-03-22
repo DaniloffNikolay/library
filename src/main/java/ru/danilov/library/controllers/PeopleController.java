@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.danilov.library.dao.PersonDAO;
 import ru.danilov.library.models.Person;
+import ru.danilov.library.util.PersonValidator;
 
 import javax.validation.Valid;
 
@@ -19,10 +20,12 @@ import javax.validation.Valid;
 public class PeopleController {
 
     private final PersonDAO personDAO;
+    private final PersonValidator personValidator;
 
     @Autowired
-    public PeopleController(PersonDAO personDAO) {
+    public PeopleController(PersonDAO personDAO, PersonValidator personValidator) {
         this.personDAO = personDAO;
+        this.personValidator = personValidator;
     }
 
     @GetMapping()
@@ -38,6 +41,7 @@ public class PeopleController {
 
     @PostMapping()
     public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
+        personValidator.validate(person, bindingResult);
 
         if (bindingResult.hasErrors())
             return "people/new";
@@ -51,5 +55,28 @@ public class PeopleController {
         System.out.println(id);
         model.addAttribute("person", personDAO.show(id));
         return "people/show";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id) {
+        model.addAttribute("person", personDAO.show(id));
+        return "people/edit";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id) {
+        personDAO.delete(id);
+        return "redirect:/people";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult, @PathVariable("id") int id) {
+        personValidator.validate(person, bindingResult);
+
+        if (bindingResult.hasErrors())
+            return "people/edit";
+
+        personDAO.update(id, person);
+        return "redirect:/people";
     }
 }

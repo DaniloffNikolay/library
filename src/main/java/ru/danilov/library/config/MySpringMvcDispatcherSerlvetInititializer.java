@@ -44,6 +44,8 @@ public class MySpringMvcDispatcherSerlvetInititializer extends AbstractAnnotatio
 
         FilterRegistration.Dynamic filterRegistration = servletContext
                 .addFilter("characterEncodingFilter", characterEncodingFilter);
+        servletContext.addFilter("hiddenHttpMethodFilter",
+                new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null ,true, "/*");
         filterRegistration.addMappingForUrlPatterns(null, false, "/*");
     }
 }
