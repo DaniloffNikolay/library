@@ -6,10 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.danilov.library.dao.BookDAO;
+import ru.danilov.library.dao.PersonDAO;
 import ru.danilov.library.models.Book;
 import ru.danilov.library.models.Person;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * User: Nikolai Danilov
@@ -20,10 +22,12 @@ import javax.validation.Valid;
 public class BooksController {
 
     private final BookDAO bookDAO;
+    private final PersonDAO personDAO;
 
     @Autowired
-    public BooksController(BookDAO booksDAO) {
+    public BooksController(BookDAO booksDAO, PersonDAO personDAO) {
         this.bookDAO = booksDAO;
+        this.personDAO = personDAO;
     }
 
     @GetMapping()
@@ -47,8 +51,11 @@ public class BooksController {
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("book", bookDAO.show(id));
+    public String show(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person) {
+        Book book = bookDAO.show(id);
+        model.addAttribute("book", book);
+        List<Person> people = personDAO.index();
+        model.addAttribute("people", people);
         return "books/show";
     }
 
@@ -70,6 +77,12 @@ public class BooksController {
             return "books/edit";
 
         bookDAO.update(id, book);
+        return "redirect:/books";
+    }
+
+    @PatchMapping("/{id}/add")
+    public String addPerson(@ModelAttribute("person") Person person, @PathVariable("id") int id) {
+        bookDAO.update(id, person);
         return "redirect:/books";
     }
 }

@@ -52,4 +52,9 @@ public class BookDAO {
         jdbcTemplate.update("UPDATE Books SET name=?, author=?, year=? WHERE id=?",
                 updatedBook.getName(), updatedBook.getAuthor(), updatedBook.getYear(), id);
     }
+
+    public void update(int id, Person updatedPerson) {
+        jdbcTemplate.update("UPDATE Books SET person_id=? WHERE id=?",
+                updatedPerson.getId(), id);
+    }
 }
