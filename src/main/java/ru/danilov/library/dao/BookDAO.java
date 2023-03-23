@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.danilov.library.models.Book;
-import ru.danilov.library.models.Person;
 
 import java.util.List;
 
@@ -14,12 +13,12 @@ import java.util.List;
  * Date: 22.03.2023
  */
 @Component
-public class BooksDAO {
+public class BookDAO {
 
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public BooksDAO(JdbcTemplate jdbcTemplate) {
+    public BookDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
