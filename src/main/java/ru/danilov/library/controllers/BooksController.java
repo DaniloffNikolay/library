@@ -54,8 +54,13 @@ public class BooksController {
     public String show(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person) {
         Book book = bookDAO.show(id);
         model.addAttribute("book", book);
-        List<Person> people = personDAO.index();
-        model.addAttribute("people", people);
+        if (book.getPersonId() != null) {
+            Person personHasBook = personDAO.show(book.getPersonId());
+            model.addAttribute("personHasBook", personHasBook);
+        } else {
+            List<Person> people = personDAO.index();
+            model.addAttribute("people", people);
+        }
         return "books/show";
     }
 
@@ -83,6 +88,12 @@ public class BooksController {
     @PatchMapping("/{id}/add")
     public String addPerson(@ModelAttribute("person") Person person, @PathVariable("id") int id) {
         bookDAO.update(id, person);
+        return "redirect:/books";
+    }
+
+    @PatchMapping("/{id}/clear")
+    public String addPerson(@PathVariable("id") int id) {
+        bookDAO.clearPerson(id);
         return "redirect:/books";
     }
 }
