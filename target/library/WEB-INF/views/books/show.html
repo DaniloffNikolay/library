@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Страница книги</title>
+</head>
+<body>
+<p th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">VALUE</p>
+
+<p>Эта книга свободна. Кому ее назначить?</p>
+<p>Выподающий список всех людей</p>
+<p>Книга сейчас у: ТУТ УКАЗЫВАЕТСЯ ЧЕЛОВЕК</p>
+<p>Освободить книгу</p>
+<br/>
+
+<form th:method="GET" th:action="@{/books/{id}/edit(id=${book.getId()})}">
+    <input type="submit" value="Редоктировать"/>
+</form>
+
+<form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
+    <input type="submit" value="Удалить"/>
+</form>
+</body>
+</html>
