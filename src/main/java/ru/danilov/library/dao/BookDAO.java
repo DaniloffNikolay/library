@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.danilov.library.models.Book;
+import ru.danilov.library.models.Person;
 
 import java.util.List;
 
@@ -24,6 +25,10 @@ public class BookDAO {
 
     public List<Book> index() {
         return jdbcTemplate.query("SELECT * FROM Books", new BeanPropertyRowMapper<>(Book.class));
+    }
+
+    public List<Book> index(Person person) {
+        return jdbcTemplate.query("SELECT * FROM Books WHERE person_id=?", new Object[]{person.getId()}, new BeanPropertyRowMapper<>(Book.class));
     }
 
     public void save(Book book) {

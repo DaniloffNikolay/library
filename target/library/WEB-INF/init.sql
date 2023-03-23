@@ -30,5 +30,8 @@ INSERT INTO Books(person_id, name, author, year) VALUES (null,'Психопот�
 INSERT INTO Books(person_id, name, author, year) VALUES (null,'Игра в бисер', 'Герман Гессе', 1943);
 INSERT INTO Books(person_id, name, author, year) VALUES (null,'Бытие и время', 'Мартин Хайдеггер', 1927);
 
+UPDATE Books SET person_id=1 WHERE id=1;
+UPDATE Books SET person_id=1 WHERE id=2;
+
 SELECT * FROM Person;
 SELECT *FROM Books;
