@@ -100,8 +100,11 @@ public class BooksController {
     }
 
     @GetMapping("/search")
-    public String search() {
-
+    public String search(Model model, @RequestParam(value = "searchString", required=false) String searchString) {
+        if (searchString != null)
+            model.addAttribute("books", booksService.findBookByNameContains(searchString));
+        else
+            model.addAttribute("notFind", "Книг не найдено");
 
         return "books/search";
     }

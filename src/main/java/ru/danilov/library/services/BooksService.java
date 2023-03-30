@@ -30,6 +30,10 @@ public class BooksService {
         return optionalBook.orElse(null);
     }
 
+    public List<Book> findBookByNameContains(String name) {
+        return booksRepository.findBookByNameContains(name);
+    }
+
     @Transactional
     public void save(Book book) {
         booksRepository.save(book);
