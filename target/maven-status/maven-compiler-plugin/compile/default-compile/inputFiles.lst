@@ -1,0 +1,13 @@
+D:\работа\projects\library\src\main\java\ru\danilov\library\controllers\PeopleController.java
+D:\работа\projects\library\src\main\java\ru\danilov\library\services\PeopleService.java
+D:\работа\projects\library\src\main\java\ru\danilov\library\dao\PersonDAO.java
+D:\работа\projects\library\src\main\java\ru\danilov\library\models\Person.java
+D:\работа\projects\library\src\main\java\ru\danilov\library\util\PersonValidator.java
+D:\работа\projects\library\src\main\java\ru\danilov\library\controllers\BooksController.java
+D:\работа\projects\library\src\main\java\ru\danilov\library\repositories\PeopleRepository.java
+D:\работа\projects\library\src\main\java\ru\danilov\library\dao\BookDAO.java
+D:\работа\projects\library\src\main\java\ru\danilov\library\repositories\BooksRepository.java
+D:\работа\projects\library\src\main\java\ru\danilov\library\models\Book.java
+D:\работа\projects\library\src\main\java\ru\danilov\library\config\MySpringMvcDispatcherSerlvetInititializer.java
+D:\работа\projects\library\src\main\java\ru\danilov\library\config\SpringConfig.java
+D:\работа\projects\library\src\main\java\ru\danilov\library\services\BooksService.java

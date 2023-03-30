@@ -1,0 +1,13 @@
+ru\danilov\library\config\SpringConfig.class
+ru\danilov\library\dao\PersonDAO.class
+ru\danilov\library\models\Book.class
+ru\danilov\library\controllers\BooksController.class
+ru\danilov\library\dao\BookDAO.class
+ru\danilov\library\models\Person.class
+ru\danilov\library\repositories\BooksRepository.class
+ru\danilov\library\services\BooksService.class
+ru\danilov\library\services\PeopleService.class
+ru\danilov\library\config\MySpringMvcDispatcherSerlvetInititializer.class
+ru\danilov\library\repositories\PeopleRepository.class
+ru\danilov\library\util\PersonValidator.class
+ru\danilov\library\controllers\PeopleController.class

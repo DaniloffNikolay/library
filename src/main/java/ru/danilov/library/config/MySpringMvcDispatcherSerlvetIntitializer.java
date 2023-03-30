@@ -7,12 +7,13 @@ import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.*;
+import java.util.EnumSet;
 
 /**
  * User: Nikolai Danilov
  * Date: 22.03.2023
  */
-public class MySpringMvcDispatcherSerlvetInititializer extends AbstractAnnotationConfigDispatcherServletInitializer{
+public class MySpringMvcDispatcherSerlvetIntitializer extends AbstractAnnotationConfigDispatcherServletInitializer{
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return null;
@@ -29,9 +30,33 @@ public class MySpringMvcDispatcherSerlvetInititializer extends AbstractAnnotatio
     }
 
     @Override
+    public void onStartup(ServletContext aServletContext) throws ServletException {
+        super.onStartup(aServletContext);
+        registerCharacterEncodingFilter(aServletContext);
+        registerHiddenFieldFilter(aServletContext);
+    }
+
+    private void registerHiddenFieldFilter(ServletContext aContext) {
+        aContext.addFilter("hiddenHttpMethodFilter",
+                new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null ,true, "/*");
+    }
+
+    private void registerCharacterEncodingFilter(ServletContext aContext) {
+        EnumSet<DispatcherType> dispatcherTypes = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD);
+
+        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+        characterEncodingFilter.setEncoding("UTF-8");
+        characterEncodingFilter.setForceEncoding(true);
+
+        FilterRegistration.Dynamic characterEncoding = aContext.addFilter("characterEncoding", characterEncodingFilter);
+        characterEncoding.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
+    }
+
+
+    /*@Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.register(SpringConfig.class/*, WebConfig.class*/);
+        context.register(SpringConfig.class);
         context.setServletContext(servletContext);
 
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(context));
@@ -47,5 +72,5 @@ public class MySpringMvcDispatcherSerlvetInititializer extends AbstractAnnotatio
         servletContext.addFilter("hiddenHttpMethodFilter",
                 new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null ,true, "/*");
         filterRegistration.addMappingForUrlPatterns(null, false, "/*");
-    }
+    }*/
 }

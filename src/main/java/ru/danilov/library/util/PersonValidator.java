@@ -6,6 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import ru.danilov.library.dao.PersonDAO;
 import ru.danilov.library.models.Person;
+import ru.danilov.library.services.PeopleService;
 
 /**
  * User: Nikolai Danilov
@@ -14,11 +15,11 @@ import ru.danilov.library.models.Person;
 @Component
 public class PersonValidator implements Validator {
 
-    private final PersonDAO personDAO;
+    private final PeopleService peopleService;
 
     @Autowired
-    public PersonValidator(PersonDAO personDAO) {
-        this.personDAO = personDAO;
+    public PersonValidator(PeopleService peopleService) {
+        this.peopleService = peopleService;
     }
 
     @Override
@@ -30,7 +31,7 @@ public class PersonValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Person person = (Person) o;
 
-        if (personDAO.show(person.getFio()).isPresent())
+        if (peopleService.findPersonByFioIs(person.getFio()).size() > 0)
             errors.rejectValue("fio", "", "This FIO is already taken");
     }
 }

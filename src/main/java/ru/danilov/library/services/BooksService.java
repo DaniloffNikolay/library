@@ -52,6 +52,6 @@ public class BooksService {
 
     @Transactional
     public List<Book> findByBookWherePersonId(int id) {
-        return booksRepository.findByBookWherePersonId(id);
+        return null;
     }
 }
