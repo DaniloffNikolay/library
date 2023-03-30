@@ -24,11 +24,19 @@ public class BooksService {
     }
 
     public List<Book> findAll() {
-        return booksRepository.findAll(Sort.by("year"));
+        return booksRepository.findAll();
     }
 
     public List<Book> findAll(int page, int searchString) {
         return booksRepository.findAll(PageRequest.of(page, searchString)).getContent();
+    }
+
+    public List<Book> findAll(int page, int searchString, boolean sortByYear) {
+        return booksRepository.findAll(PageRequest.of(page, searchString, Sort.by("year"))).getContent();
+    }
+
+    public List<Book> findAllSortByYear() {
+        return booksRepository.findAll(Sort.by("year"));
     }
 
     public Book findOne(int id) {
