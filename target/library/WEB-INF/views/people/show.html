@@ -12,7 +12,12 @@
     <div th:if="${books.size() > 0}">
         <b>Книги:</b>
         <div th:each="book : ${books}">
-            <span th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</span>
+            <div th:if="${book.isOverdue()}" style="color:red">
+                <span th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</span>
+            </div>
+            <div th:unless="${book.isOverdue()}">
+                <span th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</span>
+            </div>
         </div>
     </div>
 </div>

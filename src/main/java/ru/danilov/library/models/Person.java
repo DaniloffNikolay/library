@@ -27,7 +27,6 @@ public class Person {
 
     @OneToMany(mappedBy = "person")
     private List<Book> books;
-
     public Person() {}
 
     public Person(String fio, int birth_year) {
@@ -57,6 +56,14 @@ public class Person {
 
     public void setBirthYear(int birthYear) {
         this.birthYear = birthYear;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     @Override

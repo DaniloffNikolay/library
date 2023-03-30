@@ -94,10 +94,15 @@ public class BooksController {
     }
 
     @PatchMapping("/{id}/clear")
-    public String addPerson(@PathVariable("id") int id) {
-        List<Book>  books = booksService.findByBookWherePersonId(id);
-        for (Book book : books)
-            book.setPerson(null);
+    public String clearPerson(@PathVariable("id") int id) {
+        booksService.clearPersonInBooks(id);
         return "redirect:/books";
+    }
+
+    @GetMapping("/search")
+    public String search() {
+
+
+        return "books/search";
     }
 }

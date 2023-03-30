@@ -2,6 +2,7 @@ package ru.danilov.library.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
+import java.util.Date;
 
 /**
  * User: Nikolai Danilov
@@ -24,6 +25,11 @@ public class Book {
     @Max(value = 2023, message = "birth year should be less than 2023")
     @Column(name = "year")
     private int year;
+    @Column(name = "date_of_taking")
+    private Date dateOfTaking;
+
+    @Transient
+    private boolean overdue;
 
     public Book() {}
 
@@ -73,5 +79,21 @@ public class Book {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public Date getDateOfTaking() {
+        return dateOfTaking;
+    }
+
+    public void setDateOfTaking(Date dateOfTaking) {
+        this.dateOfTaking = dateOfTaking;
+    }
+
+    public boolean isOverdue() {
+        return overdue;
+    }
+
+    public void setOverdue() {
+        overdue = dateOfTaking.getDate() + 10 < (new Date()).getDate();
     }
 }

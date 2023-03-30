@@ -26,13 +26,11 @@ public class PeopleController {
 
     private final PeopleService peopleService;
     private final PersonValidator personValidator;
-    private final BooksService booksService;
 
     @Autowired
-    public PeopleController(PeopleService peopleService, PersonValidator personValidator, BooksService booksService) {
+    public PeopleController(PeopleService peopleService, PersonValidator personValidator) {
         this.peopleService = peopleService;
         this.personValidator = personValidator;
-        this.booksService = booksService;
     }
 
     @GetMapping()
@@ -59,9 +57,9 @@ public class PeopleController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        Person person = peopleService.findOne(id);
+        Person person = peopleService.findOneAndLoadBooks(id);
         model.addAttribute("person", person);
-        List<Book> books = booksService.findByPerson(person);
+        List<Book> books = person.getBooks();
         model.addAttribute("books", books);
         return "people/show";
     }

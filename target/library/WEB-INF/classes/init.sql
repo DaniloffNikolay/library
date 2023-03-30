@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS  Books  (
     person_id int REFERENCES Person(id) ON DELETE SET NULL,
     name varchar NOT NULL,
     author varchar NOT NULL,
-    year int
+    year int,
+    date_of_taking date DEFAULT CURRENT_DATE
 );
 
 INSERT INTO Person(fio, birth_year) VALUES ('Иванов Иван Иванович', 1970);
@@ -31,7 +32,9 @@ INSERT INTO Books(person_id, name, author, year) VALUES (null,'Игра в би�
 INSERT INTO Books(person_id, name, author, year) VALUES (null,'Бытие и время', 'Мартин Хайдеггер', 1927);
 
 UPDATE Books SET person_id=1 WHERE id=1;
+UPDATE Books SET date_of_taking='2023-03-18' WHERE id=1;
 UPDATE Books SET person_id=1 WHERE id=2;
+UPDATE Books SET date_of_taking='2023-03-25' WHERE id=2;
 
-SELECT * FROM Person;
+--SELECT * FROM Person;
 SELECT *FROM Books;

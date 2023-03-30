@@ -25,10 +25,6 @@ public class BooksService {
         return booksRepository.findAll();
     }
 
-    public List<Book> findByPerson(Person person) {
-        return booksRepository.findByPerson(person);
-    }
-
     public Book findOne(int id) {
         Optional<Book> optionalBook = booksRepository.findById(id);
         return optionalBook.orElse(null);
@@ -51,7 +47,10 @@ public class BooksService {
     }
 
     @Transactional
-    public List<Book> findByBookWherePersonId(int id) {
-        return null;
+    public void clearPersonInBooks(int id) {
+        List<Book> books = booksRepository.findBookByPersonId(id);
+        for (Book book : books) {
+            book.setPerson(null);
+        }
     }
 }

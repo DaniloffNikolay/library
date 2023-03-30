@@ -1,8 +1,10 @@
 package ru.danilov.library.services;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.danilov.library.models.Book;
 import ru.danilov.library.models.Person;
 import ru.danilov.library.repositories.PeopleRepository;
 
@@ -26,6 +28,17 @@ public class PeopleService {
 
     public Person findOne(int id) {
         Optional<Person> optionalPerson = peopleRepository.findById(id);
+        return optionalPerson.orElse(null);
+    }
+
+    public Person findOneAndLoadBooks(int id) {
+        Optional<Person> optionalPerson = peopleRepository.findById(id);
+        if (optionalPerson.isPresent()) {
+            //Hibernate.initialize(optionalPerson.get().getBooks());
+            List<Book> books = optionalPerson.get().getBooks();
+            for (Book book : books)
+                book.setOverdue();
+        }
         return optionalPerson.orElse(null);
     }
 
