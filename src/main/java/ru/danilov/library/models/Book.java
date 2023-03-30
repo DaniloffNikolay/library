@@ -1,25 +1,35 @@
 package ru.danilov.library.models;
 
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 
 /**
  * User: Nikolai Danilov
  * Date: 22.03.2023
  */
+@Entity
+@Table(name = "Books")
 public class Book {
 
+    @Id
+    @Column(name = "id")
     private int id;
-    private Integer personId;
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    private Person person;
+    @Column(name = "name")
     private String name;
+    @Column(name = "author")
     private String author;
     @Max(value = 2023, message = "birth year should be less than 2023")
+    @Column(name = "year")
     private int year;
 
     public Book() {}
 
-    public Book(int id, Integer personId, String name, String author, int year) {
+    public Book(int id, Person person, String name, String author, int year) {
         this.id = id;
-        this.personId = personId;
+        this.person = person;
         this.name = name;
         this.author = author;
         this.year = year;
@@ -33,12 +43,12 @@ public class Book {
         this.id = id;
     }
 
-    public Integer getPersonId() {
-        return personId;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setPersonId(Integer personId) {
-        this.personId = personId;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public String getName() {

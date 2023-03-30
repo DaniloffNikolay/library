@@ -1,25 +1,36 @@
 package ru.danilov.library.models;
 
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 /**
  * User: Nikolai Danilov
  * Date: 22.03.2023
  */
+@Entity
+@Table(name = "Person")
 public class Person {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Pattern(regexp = "[A-Z|А-Я]\\W+\\s[A-Z|А-Я]\\W+\\s[A-Z|А-Я]\\W+", message = "Your FIO should be in this format: Surname Name MiddleName")
+    @Column(name = "fio")
     private String fio;
     @Min(value = 1900, message = "birth year should be greater than 1900")
     @Max(value = 2023, message = "birth year should be less than 2023")
+    @Column(name = "birth_year")
     private int birthYear;
+
+    @OneToMany(mappedBy = "person")
+    private List<Book> books;
 
     public Person() {}
 
-    public Person(int id, String fio, int birth_year) {
-        this.id = id;
+    public Person(String fio, int birth_year) {
         this.fio = fio;
         this.birthYear = birth_year;
     }
