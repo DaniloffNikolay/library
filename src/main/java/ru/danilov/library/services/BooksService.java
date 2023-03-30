@@ -1,6 +1,8 @@
 package ru.danilov.library.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.danilov.library.models.Book;
@@ -22,7 +24,11 @@ public class BooksService {
     }
 
     public List<Book> findAll() {
-        return booksRepository.findAll();
+        return booksRepository.findAll(Sort.by("year"));
+    }
+
+    public List<Book> findAll(int page, int searchString) {
+        return booksRepository.findAll(PageRequest.of(page, searchString)).getContent();
     }
 
     public Book findOne(int id) {

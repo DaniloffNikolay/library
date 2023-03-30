@@ -12,4 +12,5 @@ import java.util.List;
 public interface BooksRepository extends JpaRepository<Book, Integer> {
     List<Book> findBookByPersonId(int id);
     List<Book> findBookByNameContains(String name);
+
 }
